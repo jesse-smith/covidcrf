@@ -20,3 +20,5 @@ RoxygenNote: 7.1.1
 URL: https://jesse-smith.github.io/covidcrf/,
     https://github.com/jesse-smith/covidcrf
 BugReports: https://github.com/jesse-smith/covidcrf/issues
+Depends: 
+    R (>= 2.10)
