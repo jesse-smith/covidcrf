@@ -10,7 +10,7 @@ load_positive <- function(date = NULL) {
 
   # Get date of latest NBS PCR file
   if (rlang::is_empty(date)) {
-    date <- path_pcr() %>%
+    date <- coviData::path_pcr() %>%
       stringr::str_extract(pattern = "[0-9]{8}") %>%
       lubridate::mdy()
   } else {
