@@ -58,7 +58,7 @@ NULL
 load_pcr_positive <- function(date = NULL) {
 
   coviData::path_pcr(date = date) %>%
-    coviData::read_file_delim() %>%
+    read_pcr_positive() %>%
     janitor::clean_names() %>%
     dplyr::filter(
       .data[["inv_case_status"]] %in% c("C", "P"),
@@ -70,7 +70,7 @@ load_pcr_positive <- function(date = NULL) {
 load_inv_positive <- function(date = NULL) {
 
   coviData::path_inv(date = date) %>%
-    coviData::read_file_delim() %>%
+    read_inv_positive() %>%
     janitor::clean_names() %>%
     dplyr::filter(.data[["inv_case_status"]] %in% c("C", "P")) %>%
     dplyr::left_join(
