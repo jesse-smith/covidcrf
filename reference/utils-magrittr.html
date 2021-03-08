@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter to Cases of Interest — filter_crf • covidcrf</title>
+<title>Magrittr Pipe Utilities — utils-magrittr • covidcrf</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,11 @@
 
 
 
-<meta property="og:title" content="Filter to Cases of Interest — filter_crf" />
-<meta property="og:description" content="filter_crf() filters out cases which have previously answered the survey
-or were not at work within days days of their onset/test date." />
+<meta property="og:title" content="Magrittr Pipe Utilities — utils-magrittr" />
+<meta property="og:description" content="The magrittr pipe is a common programming tool in R that often makes
+code much easier to read. In addition to the primary pipe operator, magrittr
+offers several additional pipes, as well as functions to help perform common
+infix-operations in a pipe-friendly manner." />
 
 
 
@@ -109,40 +111,24 @@ or were not at work within days days of their onset/test date." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter to Cases of Interest</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jesse-smith/covidcrf/blob/master/R/filter_crf.R'><code>R/filter_crf.R</code></a></small>
-    <div class="hidden name"><code>filter_crf.Rd</code></div>
+    <h1>Magrittr Pipe Utilities</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jesse-smith/covidcrf/blob/master/R/utils-magrittr.R'><code>R/utils-magrittr.R</code></a></small>
+    <div class="hidden name"><code>utils-magrittr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>filter_crf()</code> filters out cases which have previously answered the survey
-or were not at work within <code>days</code> days of their onset/test date.</p>
+    <p>The magrittr pipe is a common programming tool in <strong>R</strong> that often makes
+code much easier to read. In addition to the primary pipe operator, magrittr
+offers several additional pipes, as well as functions to help perform common
+infix-operations in a pipe-friendly manner.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_crf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='download_crf.html'>download_crf</a></span><span class='op'>(</span><span class='op'>)</span>, days <span class='op'>=</span> <span class='fl'>5L</span>, na_keep <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>A data frame with data from the CRF REDcap project, as output by
-<code><a href='download_crf.html'>download_crf()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>days</th>
-      <td><p>The maxmimum allowed difference between last day worked
-(<code>last_worked</code>) and test date (<code>specimendate</code>)</p></td>
-    </tr>
-    <tr>
-      <th>na_keep</th>
-      <td><p>Should missing data be kept or excluded?</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The input <code>data</code> filtered according to the description above</p>
+    <p>These functions are currently bulk imported to allow easy reading of code
+with the pipe operator. This decision may be re-thought at a later date.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
