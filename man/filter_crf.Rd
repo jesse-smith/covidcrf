@@ -4,11 +4,16 @@
 \alias{filter_crf}
 \title{Filter to Cases of Interest}
 \usage{
-filter_crf(data = download_crf(), days = 5L)
+filter_crf(data = download_crf(), days = 5L, na_keep = TRUE)
 }
 \arguments{
 \item{data}{A data frame with data from the CRF REDcap project, as output by
 \code{\link[covidcrf:download_crf]{download_crf()}}}
+
+\item{days}{The maxmimum allowed difference between last day worked
+(\code{last_worked}) and test date (\code{specimendate})}
+
+\item{na_keep}{Should missing data be kept or excluded?}
 }
 \value{
 The input \code{data} filtered according to the description above
