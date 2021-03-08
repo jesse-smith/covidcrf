@@ -16,7 +16,9 @@ Depends:
     R (>= 2.10)
 Imports: 
     httr,
-    janitor
+    janitor,
+    magrittr,
+    rlang
 Suggests: 
     covr,
     dplyr,
