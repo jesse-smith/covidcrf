@@ -10,7 +10,7 @@ load_positive(date = NULL)
 \item{date}{Optional. Character (formatted as "YYYY-MM-DD") or \code{Date}.}
 }
 \value{
-A \code{date_tbl}, which is a \code{tibble} with a \code{date} attribute
+A \code{tibble}
 }
 \description{
 \code{load_positive()} loads positive PCR tests and investigations, and it joins

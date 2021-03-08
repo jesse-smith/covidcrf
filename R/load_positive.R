@@ -5,7 +5,7 @@
 #'
 #' @param date Optional. Character (formatted as "YYYY-MM-DD") or `Date`.
 #'
-#' @return A `date_tbl`, which is a `tibble` with a `date` attribute
+#' @return A `tibble`
 load_positive <- function(date = NULL) {
 
   # Get date of latest NBS PCR file
@@ -36,59 +36,7 @@ load_positive <- function(date = NULL) {
 
   pcr %>%
     dplyr::left_join(inv, by = "inv_local_id", suffix = c("", suffix)) %>%
-    dplyr::select(-dplyr::ends_with(suffix)) %>%
-    as_date_tbl(date = date)
-}
-
-
-#' Load New NBS Positive PCRs for a Given Date
-#'
-#' `load_new_positive()` loads newly reported positive tests on a given date.
-#' It identifies newly reported tests on that date, subsets to those tests, and
-#' adds information from the investigations file to the identified records.
-#'
-#' @param date Character (formatted as "YYYY-MM-DD") or `Date`.
-#'
-#' @return A `date_tbl`, which is a `tibble` with a `date` attribute
-load_new_positive <- function(date = NULL) {
-
-  # Get date of latest NBS PCR file
-  if (rlang::is_empty(date)) {
-    date <- path_pcr() %>%
-      stringr::str_extract(pattern = "[0-9]{8}") %>%
-      lubridate::mdy()
-  } else {
-    date <- lubridate::as_date(date)
-  }
-
-  # Load positives tests in latest and second-latest files
-  pcr_new <- load_pcr_positive(date = date) %>%
-    janitor::clean_names()
-  pcr_old <- load_pcr_positive(date = date - 1L) %>%
-    janitor::clean_names() %>%
-    dplyr::select("lab_local_id")
-
-  # Join data from investigations file
-  inv_new <- load_inv_positive(date = date)
-
-  # Generate random suffix to identify variables to drop from inv file
-  suffix <- c(LETTERS, letters, 0L:9L) %>%
-    sample(size = 6L) %>%
-    append("_") %>%
-    rev() %>%
-    append("_") %>%
-    rev() %>%
-    paste0(collapse = "")
-
-  pcr_new %>%
-    # Get rid of duplicates in PCR files
-    dplyr::anti_join(pcr_old, by = "lab_local_id") %>%
-    # Add data from investigations file
-    dplyr::left_join(inv_new, by = "inv_local_id", suffix = c("", suffix)) %>%
-    # Remove duplicate columns in investigations file
-    dplyr::select(-dplyr::ends_with(suffix)) %>%
-    # Convert to `date_tbl`
-    as_date_tbl(date = date)
+    dplyr::select(-dplyr::ends_with(suffix))
 }
 
 #' Load Positive Tests or Cases From NBS Snapshot File
@@ -109,8 +57,8 @@ NULL
 #' @rdname load_nbs_positive
 load_pcr_positive <- function(date = NULL) {
 
-  path_pcr(date = date) %>%
-    read_pcr_positive() %>%
+  coviData::path_pcr(date = date) %>%
+    coviData::read_file_delim() %>%
     janitor::clean_names() %>%
     dplyr::filter(
       .data[["inv_case_status"]] %in% c("C", "P"),
@@ -121,8 +69,8 @@ load_pcr_positive <- function(date = NULL) {
 #' @rdname load_nbs_positive
 load_inv_positive <- function(date = NULL) {
 
-  path_inv(date = date) %>%
-    read_inv_positive() %>%
+  coviData::path_inv(date = date) %>%
+    coviData::read_file_delim() %>%
     janitor::clean_names() %>%
     dplyr::filter(.data[["inv_case_status"]] %in% c("C", "P")) %>%
     dplyr::left_join(
