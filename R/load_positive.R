@@ -79,6 +79,7 @@ load_inv_positive <- function(date = NULL) {
     ) %>%
     dplyr::mutate(
       report_date = .data[["report_date"]] %>%
-        tidyr::replace_na(lubridate::today())
+        tidyr::replace_na(lubridate::today()) %>%
+        as.character()
     )
 }
