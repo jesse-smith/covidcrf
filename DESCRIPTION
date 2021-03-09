@@ -25,6 +25,7 @@ Suggests:
     dplyr,
     jsonlite,
     lubridate,
+    memoise,
     stringr,
     testthat (>= 3.0.0),
     tibble,
