@@ -2,7 +2,7 @@
 #'
 #' `add_in_nbs()` adds a `logical` column called `in_nbs` that indicates whether
 #' the individual in a row has a match in NBS using their first name, last name,
-#' and date of birth.
+#' date of birth, and test date.
 #'
 #' @param crf Case Report Form data, usually from
 #'   \code{\link[covidcrf:filter_crf]{filter_crf()}}
@@ -112,7 +112,8 @@ add_crf_ids <- function(data = filter_crf()) {
     data,
     .firstname_id_tmp_ = coviData::std_names(.data[["firstname"]]),
     .lastname_id_tmp_ = coviData::std_names(.data[["lastname"]]),
-    .dob_id_tmp_ = lubridate::as_date(.data[["dob"]])
+    .dob_id_tmp_ = lubridate::as_date(.data[["dob"]]),
+    .test_dt_id_tmp_ = lubridate::as_date(.data[["specimendate"]])
   )
 }
 
@@ -128,6 +129,12 @@ add_nbs_ids <- function(data = load_positive()) {
     .lastname_id_tmp_ = coviData::std_names(.data[["patient_last_name"]]),
     .dob_id_tmp_ = coviData::std_dates(
       .data[["patient_dob"]],
+      force = "dt",
+      train = FALSE,
+      orders = "ymdT"
+    ),
+    .test_dt_id_tmp_ = coviData::std_dates(
+      .data[["specimen_coll_dt"]],
       force = "dt",
       train = FALSE,
       orders = "ymdT"
