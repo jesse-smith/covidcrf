@@ -10,7 +10,7 @@
 #' @return The de-duplicated and coalesced input, sorted by `record_id`
 #'
 #' @export
-distinct_crf <- function(data = add_recent_test()) {
+distinct_crf <- function(data = filter_crf()) {
 
   cols <- colnames(data)
 

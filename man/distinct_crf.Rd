@@ -4,7 +4,7 @@
 \alias{distinct_crf}
 \title{Deduplicate Cases and Coalesce Information Among Duplicates}
 \usage{
-distinct_crf(data = add_recent_test())
+distinct_crf(data = filter_crf())
 }
 \arguments{
 \item{data}{A \code{tibble} with CRF data, usually output from
