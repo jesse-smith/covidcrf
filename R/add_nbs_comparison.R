@@ -15,21 +15,20 @@
 #' @export
 add_in_nbs <- function(crf = filter_crf(), nbs = load_positive()) {
 
-  crf <- add_crf_ids(crf)
+  crf <- add_crf_ids(crf) %>% dplyr::mutate(.row_id_tmp_ = dplyr::row_number())
   nbs <- add_nbs_ids(nbs)
 
   by <- dplyr::intersect(
-    stringr::str_subset(colnames(crf), "[.].*_id_tmp_"),
-    stringr::str_subset(colnames(nbs), "[.].*_id_tmp_")
+    stringr::str_subset(colnames(crf), "^[.].*_id_tmp_$"),
+    stringr::str_subset(colnames(nbs), "^[.].*_id_tmp_$")
   )
 
-  rows_in_nbs <- crf %>%
-    dplyr::mutate(.row_id_tmp_ = dplyr::row_number())
+  crf_rows_in_nbs <- crf %>%
     dplyr::semi_join(nbs, by = by) %>%
     dplyr::pull(".row_id_tmp_")
 
   crf %>%
-    dplyr::mutate(in_nbs = .data[["row_id_tmp_"]] %in% rows_in_nbs) %>%
+    dplyr::mutate(in_nbs = .data[[".row_id_tmp_"]] %in% crf_rows_in_nbs) %>%
     dplyr::select(-dplyr::matches("[.].*_id_tmp_"))
 }
 
