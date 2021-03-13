@@ -46,7 +46,7 @@ add_in_nbs <- function(crf = filter_crf(), nbs = load_positive()) {
 #'
 #' @param days Range of days for matching test dates
 #'
-#' @return The input `crf` data with a `logical` `recent_test`
+#' @return The input `crf` data with a `logical` column `recent_test` added
 #'
 #' @export
 add_recent_test <- function(
