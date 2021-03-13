@@ -8,7 +8,7 @@ add_recent_test(crf = add_in_nbs(), nbs = load_positive(), days = 90L)
 }
 \arguments{
 \item{crf}{Case Report Form data, usually output from
-\code{\link[covidcrf:crf_in_nbs]{crf_in_nbs()}}}
+\code{\link[covidcrf:add_in_nbs]{add_in_nbs()}}}
 
 \item{nbs}{Positive NBS data from
 \code{\link[covidcrf:load_positive]{load_positive()}}}

@@ -8,7 +8,7 @@ distinct_crf(data = filter_crf())
 }
 \arguments{
 \item{data}{A \code{tibble} with CRF data, usually output from
-\code[\link[covidcrf:filter_crf]{filter_crf()}]}
+\code{\link[covidcrf:filter_crf]{filter_crf()}}}
 }
 \value{
 The de-duplicated and coalesced input, sorted by \code{record_id}

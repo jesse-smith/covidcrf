@@ -60,7 +60,7 @@ add_in_nbs <- function(crf = distinct_crf(), nbs = load_positive()) {
 #' }
 #'
 #' @param crf Case Report Form data, usually output from
-#'   \code{\link[covidcrf:crf_in_nbs]{crf_in_nbs()}}
+#'   \code{\link[covidcrf:add_in_nbs]{add_in_nbs()}}
 #'
 #' @param nbs Positive NBS data from
 #'   \code{\link[covidcrf:load_positive]{load_positive()}}

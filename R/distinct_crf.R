@@ -5,7 +5,7 @@
 #' missing data in one duplicate record is filled in from data in others.
 #'
 #' @param data A `tibble` with CRF data, usually output from
-#'   \code[\link[covidcrf:filter_crf]{filter_crf()}]
+#'   \code{\link[covidcrf:filter_crf]{filter_crf()}}
 #'
 #' @return The de-duplicated and coalesced input, sorted by `record_id`
 #'

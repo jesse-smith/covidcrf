@@ -30,7 +30,8 @@ Suggests:
     stringr,
     testthat (>= 3.0.0),
     tibble,
-    tidyr
+    tidyr,
+    vctrs
 Remotes: 
     jesse-smith/coviData
 Config/testthat/edition: 3
