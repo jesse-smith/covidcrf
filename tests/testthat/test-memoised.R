@@ -22,3 +22,13 @@ test_that("`read_pcr_positive()` is memoised", {
   skip_if_not_installed("memoise")
   expect_true(memoise::is.memoised(read_pcr_positive))
 })
+
+test_that("`add_in_nbs()` is memoised", {
+  skip_if_not_installed("memoise")
+  expect_true(memoise::is.memoised(add_in_nbs))
+})
+
+test_that("`add_recent_test()` is memoised", {
+  skip_if_not_installed("memoise")
+  expect_true(memoise::is.memoised(add_recent_test))
+})

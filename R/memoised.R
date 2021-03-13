@@ -3,6 +3,10 @@
   # Read functions
   read_inv_positive <<- mem_if_not(read_inv_positive)
   read_pcr_positive <<- mem_if_not(read_pcr_positive)
+
+  # NBS comparison functions
+  add_in_nbs      <<- mem_if_not(add_in_nbs)
+  add_recent_test <<- mem_if_not(add_recent_test)
 }
 
 #' Memoise a Function if Not Already Done
