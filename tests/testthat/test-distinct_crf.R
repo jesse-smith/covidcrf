@@ -1,4 +1,4 @@
-test_that("`distinct_crf()` ", {
+test_that("`distinct_crf()` works with test data", {
 
   expected_crf <- dplyr::select(
     test_nbs_comparison_crf,
@@ -19,6 +19,9 @@ test_that("`distinct_crf()` ", {
 })
 
 test_that("`distinct_crf()` produces distinct rows", {
+  skip_on_ci()
+  skip_if_offline()
+
   expected_data <- add_crf_ids(filter_crf()) %>%
     dplyr::arrange(as.integer(.data[["record_id"]])) %>%
     dplyr::distinct(dplyr::across(dplyr::matches("[.].*_id_tmp_")), .keep_all = TRUE) %>%
