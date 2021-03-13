@@ -34,8 +34,14 @@ add_in_nbs <- function(crf = filter_crf(), nbs = load_positive()) {
 
 #' Determine Whether Individuals Have Another Test Within `days`
 #'
-#' `add_recent_test()` adds a column indicating whether a person has tested
-#' positive within `days` of the given test date.
+#' `add_recent_test()` adds a column indicating whether a person has previously
+#' tested positive within `days` of the given test date. The resulting
+#' `recent_test` column is:
+#' \itemize{
+#'   \item{`TRUE` if any previous tests are found}
+#'   \item{`FALSE` if no previous tests are found with complete data}
+#'   \item{`NA` if no previous tests are found with incomplete (missing) data}
+#' }
 #'
 #' @param crf Case Report Form data, usually output from
 #'   \code{\link[covidcrf:crf_in_nbs]{crf_in_nbs()}}
@@ -91,7 +97,10 @@ add_recent_test <- function(
         dplyr::between(1L, as.integer(days))
     ) %>%
     dplyr::group_by(.data[[".row_id_tmp_"]]) %>%
-    dplyr::mutate(recent_test = any(.data[[".recent_test_tmp_"]])) %>%
+    # The not-all-not-true pattern is `TRUE` if any are `TRUE`, `FALSE` if all
+    # all `FALSE`, and `NA` otherwise (i.e. none are `TRUE`, some are `FALSE`)
+    dplyr::mutate(recent_test = !all(!.data[[".recent_test_tmp_"]])) %>%
+    dplyr::distinct(.keep_all = TRUE) %>%
     dplyr::ungroup() %>%
     dplyr::select({{ crf_cols }}, "recent_test")
 }

@@ -16,9 +16,15 @@ add_recent_test(crf = crf_in_nbs(), nbs = load_positive(), days = 90L)
 \item{days}{Range of days for matching test dates}
 }
 \value{
-The input \code{crf} data with a \code{logical} \code{recent_test}
+The input \code{crf} data with a \code{logical} column \code{recent_test} added
 }
 \description{
-\code{add_recent_test()} adds a column indicating whether a person has tested
-positive within \code{days} of the given test date.
+\code{add_recent_test()} adds a column indicating whether a person has previously
+tested positive within \code{days} of the given test date. The resulting
+\code{recent_test} column is:
+\itemize{
+\item{\code{TRUE} if any previous tests are found}
+\item{\code{FALSE} if no previous tests are found with complete data}
+\item{\code{NA} if no previous tests are found with incomplete (missing) data}
+}
 }
