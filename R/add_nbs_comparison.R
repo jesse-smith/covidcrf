@@ -2,7 +2,12 @@
 #'
 #' `add_in_nbs()` adds a `logical` column called `in_nbs` that indicates whether
 #' the individual in a row has a match in NBS using their first name, last name,
-#' date of birth, and test date.
+#' date of birth, and test date. The resulting `in_nbs` column is:
+#' \itemize{
+#'   \item{`TRUE` if a match is found (including `NA == NA`)}
+#'   \item{`FALSE` if no match is found with complete data}
+#'   \item{`NA` if no match is found with incomplete data}
+#' }
 #'
 #' @param crf Case Report Form data, usually from
 #'   \code{\link[covidcrf:filter_crf]{filter_crf()}}
@@ -13,9 +18,11 @@
 #' @return The input `crf` data with a `logical` column `in_nbs` added
 #'
 #' @export
-add_in_nbs <- function(crf = filter_crf(), nbs = load_positive()) {
+add_in_nbs <- function(crf = distinct_crf(), nbs = load_positive()) {
 
-  crf <- add_crf_ids(crf) %>% dplyr::mutate(.row_id_tmp_ = dplyr::row_number())
+  crf_cols <- colnames(crf)
+
+  crf <- add_crf_ids(crf)
   nbs <- add_nbs_ids(nbs)
 
   by <- dplyr::intersect(
@@ -23,24 +30,33 @@ add_in_nbs <- function(crf = filter_crf(), nbs = load_positive()) {
     stringr::str_subset(colnames(nbs), "^[.].*_id_tmp_$")
   )
 
-  crf_rows_in_nbs <- crf %>%
+  record_in_nbs <- crf %>%
     dplyr::semi_join(nbs, by = by) %>%
-    dplyr::pull(".row_id_tmp_")
+    dplyr::pull("record_id")
 
   crf %>%
-    dplyr::mutate(in_nbs = .data[[".row_id_tmp_"]] %in% crf_rows_in_nbs) %>%
-    dplyr::select(-dplyr::matches("[.].*_id_tmp_"))
+    dplyr::mutate(
+      .in_nbs_tmp_ = .data[["record_id"]] %in% record_in_nbs,
+      .by_na_tmp_ = rowSums(dplyr::across({{ by }}, is.na)) %>% as.logical(),
+      in_nbs = dplyr::if_else(
+        !.data[[".in_nbs_tmp_"]] & .data[[".by_na_tmp_"]],
+        NA,
+        .data[[".in_nbs_tmp_"]]
+      )
+    ) %>%
+    dplyr::select({{ crf_cols }}, "in_nbs")
 }
 
 #' Determine Whether Individuals Have Another Test Within `days`
 #'
-#' `add_recent_test()` adds a column indicating whether a person has previously
+#' `add_recent_test()` adds a column indicating whether a person
+#' (identified using first name, last name, and date of birth) has previously
 #' tested positive within `days` of the given test date. The resulting
 #' `recent_test` column is:
 #' \itemize{
 #'   \item{`TRUE` if any previous tests are found}
 #'   \item{`FALSE` if no previous tests are found with complete data}
-#'   \item{`NA` if no previous tests are found with incomplete (missing) data}
+#'   \item{`NA` if no previous tests are found with incomplete test date data}
 #' }
 #'
 #' @param crf Case Report Form data, usually output from
@@ -55,53 +71,43 @@ add_in_nbs <- function(crf = filter_crf(), nbs = load_positive()) {
 #'
 #' @export
 add_recent_test <- function(
-  crf = crf_in_nbs(),
+  crf = add_in_nbs(),
   nbs = load_positive(),
   days = 90L
 ) {
 
   crf_cols <- colnames(crf)
 
-  crf <- add_crf_ids(crf) %>% dplyr::select(-".test_dt_id_tmp_")
-  nbs <- add_nbs_ids(nbs) %>% dplyr::select(-".test_dt_id_tmp_")
+  crf <- add_crf_ids(crf) %>% dplyr::rename(.test_dt_tmp_ = ".test_dt_id_tmp_")
+  nbs <- add_nbs_ids(nbs) %>% dplyr::rename(.test_dt_tmp_ = ".test_dt_id_tmp_")
 
   by <- dplyr::intersect(
-    stringr::str_subset(colnames(crf), "[.].*_id_tmp_"),
-    stringr::str_subset(colnames(nbs), "[.].*_id_tmp_")
+    stringr::str_subset(colnames(crf), "^[.].*_id_tmp_$"),
+    stringr::str_subset(colnames(nbs), "^[.].*_id_tmp_$")
   )
 
-  crf_tmp <- dplyr::mutate(
-    crf,
-    .row_id_tmp_ = dplyr::row_number(),
-    .test_dt_tmp_ = lubridate::as_date(.data[["specimendate"]])
-  )
-  remove(crf)
-
-  nbs_tmp <- dplyr::mutate(
-    nbs,
-    .test_dt_tmp_ = coviData::std_dates(
-      .data[["specimen_coll_dt"]],
-      force = "dt",
-      train = FALSE,
-      orders = "YmdT"
-    )
-  )
-  remove(nbs)
-
-  crf_tmp %>%
-    dplyr::left_join(nbs_tmp, by = by, suffix = c("", "_nbs_")) %>%
+  crf %>%
+    dplyr::left_join(nbs, by = by, suffix = c("", "_nbs_")) %>%
     dplyr::mutate(
       .recent_test_tmp_ = .data[[".test_dt_tmp_"]] %>%
         subtract(.data[[".test_dt_tmp__nbs_"]]) %>%
         as.integer() %>%
         dplyr::between(1L, as.integer(days))
     ) %>%
-    dplyr::group_by(.data[[".row_id_tmp_"]]) %>%
+    dplyr::group_by(.data[["record_id"]]) %>%
     # The not-all-not-true pattern is `TRUE` if any are `TRUE`, `FALSE` if all
     # all `FALSE`, and `NA` otherwise (i.e. none are `TRUE`, some are `FALSE`)
-    dplyr::mutate(recent_test = !all(!.data[[".recent_test_tmp_"]])) %>%
-    dplyr::distinct(.keep_all = TRUE) %>%
+    dplyr::mutate(.recent_test_tmp_ = !all(!.data[[".recent_test_tmp_"]])) %>%
     dplyr::ungroup() %>%
+    dplyr::distinct(.data[["record_id"]], .keep_all = TRUE) %>%
+    dplyr::mutate(
+      .by_na_tmp_ = rowSums(dplyr::across({{ by }}, is.na)) %>% as.logical(),
+      recent_test = dplyr::if_else(
+        !.data[[".recent_test_tmp_"]] & .data[[".by_na_tmp_"]],
+        NA,
+        .data[[".recent_test_tmp_"]]
+      )
+    ) %>%
     dplyr::select({{ crf_cols }}, "recent_test")
 }
 
@@ -113,8 +119,12 @@ add_recent_test <- function(
 add_crf_ids <- function(data = filter_crf()) {
   dplyr::mutate(
     data,
-    .firstname_id_tmp_ = coviData::std_names(.data[["firstname"]]),
-    .lastname_id_tmp_ = coviData::std_names(.data[["lastname"]]),
+    .firstname_id_tmp_ = .data[["firstname"]] %>%
+      coviData::std_names() %>%
+      stringr::str_replace("^$", NA_character_),
+    .lastname_id_tmp_ = .data[["lastname"]] %>%
+      coviData::std_names() %>%
+      stringr::str_replace("^$", NA_character_),
     .dob_id_tmp_ = lubridate::as_date(.data[["dob"]]),
     .test_dt_id_tmp_ = lubridate::as_date(.data[["specimendate"]])
   )

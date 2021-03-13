@@ -4,7 +4,7 @@
 \alias{add_recent_test}
 \title{Determine Whether Individuals Have Another Test Within \code{days}}
 \usage{
-add_recent_test(crf = crf_in_nbs(), nbs = load_positive(), days = 90L)
+add_recent_test(crf = add_in_nbs(), nbs = load_positive(), days = 90L)
 }
 \arguments{
 \item{crf}{Case Report Form data, usually output from
@@ -19,12 +19,13 @@ add_recent_test(crf = crf_in_nbs(), nbs = load_positive(), days = 90L)
 The input \code{crf} data with a \code{logical} column \code{recent_test} added
 }
 \description{
-\code{add_recent_test()} adds a column indicating whether a person has previously
+\code{add_recent_test()} adds a column indicating whether a person
+(identified using first name, last name, and date of birth) has previously
 tested positive within \code{days} of the given test date. The resulting
 \code{recent_test} column is:
 \itemize{
 \item{\code{TRUE} if any previous tests are found}
 \item{\code{FALSE} if no previous tests are found with complete data}
-\item{\code{NA} if no previous tests are found with incomplete (missing) data}
+\item{\code{NA} if no previous tests are found with incomplete test date data}
 }
 }

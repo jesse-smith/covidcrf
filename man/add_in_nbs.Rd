@@ -4,7 +4,7 @@
 \alias{add_in_nbs}
 \title{Determine Whether Inviduals are in NBS}
 \usage{
-add_in_nbs(crf = filter_crf(), nbs = load_positive())
+add_in_nbs(crf = distinct_crf(), nbs = load_positive())
 }
 \arguments{
 \item{crf}{Case Report Form data, usually from
@@ -19,5 +19,10 @@ The input \code{crf} data with a \code{logical} column \code{in_nbs} added
 \description{
 \code{add_in_nbs()} adds a \code{logical} column called \code{in_nbs} that indicates whether
 the individual in a row has a match in NBS using their first name, last name,
-date of birth, and test date.
+date of birth, and test date. The resulting \code{in_nbs} column is:
+\itemize{
+\item{\code{TRUE} if a match is found (including \code{NA == NA})}
+\item{\code{FALSE} if no match is found with complete data}
+\item{\code{NA} if no match is found with incomplete data}
+}
 }
