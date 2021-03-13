@@ -3,7 +3,6 @@
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/covidcrf)](https://CRAN.R-project.org/package=covidcrf)
 [![Codecov test coverage](https://codecov.io/gh/jesse-smith/covidcrf/branch/master/graph/badge.svg)](https://codecov.io/gh/jesse-smith/covidcrf?branch=master)
 [![R-CMD-check](https://github.com/jesse-smith/covidcrf/workflows/R-CMD-check/badge.svg)](https://github.com/jesse-smith/covidcrf/actions)
 <!-- badges: end -->
