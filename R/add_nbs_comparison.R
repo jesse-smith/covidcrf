@@ -54,8 +54,10 @@ add_recent_test <- function(
   days = 90L
 ) {
 
-  crf <- add_crf_ids(crf)
-  nbs <- add_nbs_ids(nbs)
+  crf_cols <- colnames(crf)
+
+  crf <- add_crf_ids(crf) %>% dplyr::select(-".test_dt_id_tmp_")
+  nbs <- add_nbs_ids(nbs) %>% dplyr::select(-".test_dt_id_tmp_")
 
   by <- dplyr::intersect(
     stringr::str_subset(colnames(crf), "[.].*_id_tmp_"),
@@ -93,12 +95,7 @@ add_recent_test <- function(
     dplyr::group_by(.data[[".row_id_tmp_"]]) %>%
     dplyr::mutate(recent_test = any(.data[[".recent_test_tmp_"]])) %>%
     dplyr::ungroup() %>%
-    dplyr::distinct(.data[[".row_id_tmp_"]], .keep_all = TRUE) %>%
-    dplyr::select(
-      -dplyr::ends_with("_nbs_"),
-      -dplyr::matches("[.].*_id_tmp_"),
-      -".test_dt_tmp_"
-    )
+    dplyr::select({{ crf_cols }}, "recent_test")
 }
 
 #' Add ID Columns to CRF Data
