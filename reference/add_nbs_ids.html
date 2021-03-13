@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • covidcrf</title>
+<title>Add ID Columns to NBS Data — add_nbs_ids • covidcrf</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Add ID Columns to NBS Data — add_nbs_ids" />
+<meta property="og:description" content="Add ID Columns to NBS Data" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,102 +106,33 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Add ID Columns to NBS Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jesse-smith/covidcrf/blob/master/R/add_nbs_comparison.R'><code>R/add_nbs_comparison.R</code></a></small>
+    <div class="hidden name"><code>add_nbs_ids.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Add ID Columns to NBS Data</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>add_nbs_ids</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='load_positive.html'>load_positive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="add_crf_ids.html">add_crf_ids()</a></code> </p>
-        </td>
-        <td><p>Add ID Columns to CRF Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_in_nbs.html">add_in_nbs()</a></code> </p>
-        </td>
-        <td><p>Determine Whether Inviduals are in NBS</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_nbs_ids.html">add_nbs_ids()</a></code> </p>
-        </td>
-        <td><p>Add ID Columns to NBS Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_recent_test.html">add_recent_test()</a></code> </p>
-        </td>
-        <td><p>Determine Whether Individuals Have Another Test Within <code>days</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="distinct_crf.html">distinct_crf()</a></code> </p>
-        </td>
-        <td><p>Deduplicate Cases and Coalesce Information Among Duplicates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="download_crf.html">download_crf()</a></code> </p>
-        </td>
-        <td><p>Download All Records from CRF REDcap Project</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="filter_crf.html">filter_crf()</a></code> </p>
-        </td>
-        <td><p>Filter to Cases of Interest</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_nbs_positive.html">load_pcr_positive()</a></code> <code><a href="load_nbs_positive.html">load_inv_positive()</a></code> </p>
-        </td>
-        <td><p>Load Positive Tests or Cases From NBS Snapshot File</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_positive.html">load_positive()</a></code> </p>
-        </td>
-        <td><p>Load PCR Positives from a Given Date with Investigations File Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mem_if_not.html">mem_if_not()</a></code> </p>
-        </td>
-        <td><p>Memoise a Function if Not Already Done</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read-memoised.html">read_inv_positive()</a></code> <code><a href="read-memoised.html">read_pcr_positive()</a></code> </p>
-        </td>
-        <td><p>Memoised <code>read_file_delim()</code> Wrappers</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>Data from <code><a href='filter_crf.html'>filter_crf()</a></code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>data</code> with added columns, all with suffix <code>_id_tmp_</code></p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
