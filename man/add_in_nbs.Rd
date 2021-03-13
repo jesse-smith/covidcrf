@@ -19,5 +19,5 @@ The input \code{crf} data with a \code{logical} column \code{in_nbs} added
 \description{
 \code{add_in_nbs()} adds a \code{logical} column called \code{in_nbs} that indicates whether
 the individual in a row has a match in NBS using their first name, last name,
-and date of birth.
+date of birth, and test date.
 }
