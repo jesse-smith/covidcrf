@@ -1,6 +1,5 @@
-test_that("`add_crf_ids()` produces expected ID columns with real data", {
-  skip_on_ci()
-  skip_if_offline()
+test_that("`add_crf_ids()` produces expected ID columns", {
+
   ptype <- tibble::tibble(
     .firstname_id_tmp_ = character(),
     .lastname_id_tmp_ = character(),
@@ -9,6 +8,18 @@ test_that("`add_crf_ids()` produces expected ID columns with real data", {
   ) %>%
     vctrs::vec_ptype() %>%
     dplyr::relocate(sort(colnames(.)))
+
+
+  ids_test <- add_crf_ids(test_nbs_comparison_crf) %>%
+    dplyr::select(dplyr::matches("^[.].*_id_tmp_$")) %>%
+    vctrs::vec_ptype() %>%
+    dplyr::relocate(sort(colnames(.)))
+
+  expect_vector(ids_test, ptype = ptype)
+
+  skip_on_ci()
+  skip_if_offline()
+
   ids <- add_crf_ids() %>%
     dplyr::select(dplyr::matches("^[.].*_id_tmp_$")) %>%
     vctrs::vec_ptype() %>%
@@ -17,8 +28,7 @@ test_that("`add_crf_ids()` produces expected ID columns with real data", {
   expect_vector(ids, ptype = ptype)
 })
 
-test_that("`add_nbs_ids()` produces expected ID columns with real data", {
-  skip_on_ci()
+test_that("`add_nbs_ids()` produces expected ID columns", {
   ptype <- tibble::tibble(
     .firstname_id_tmp_ = character(),
     .lastname_id_tmp_ = character(),
@@ -27,6 +37,16 @@ test_that("`add_nbs_ids()` produces expected ID columns with real data", {
   ) %>%
     vctrs::vec_ptype() %>%
     dplyr::relocate(sort(colnames(.)))
+
+  ids_test <- add_nbs_ids(test_nbs_comparison_nbs) %>%
+    dplyr::select(dplyr::matches("^[.].*_id_tmp_$")) %>%
+    vctrs::vec_ptype() %>%
+    dplyr::relocate(sort(colnames(.)))
+
+  expect_vector(ids_test, ptype = ptype)
+
+  skip_on_ci()
+
   ids <- add_nbs_ids() %>%
     dplyr::select(dplyr::matches("^[.].*_id_tmp_$")) %>%
     vctrs::vec_ptype() %>%
@@ -65,4 +85,41 @@ test_that("`add_recent_test()` identifies matches correctly", {
     )
   crf_expected <- dplyr::select(crf, "in_nbs", "recent_test", "description")
   expect_equal(crf_actual, crf_expected)
+})
+
+test_that("`add_in_nbs()` propagates missing values correctly", {
+  skip_on_ci()
+  skip_if_offline()
+
+  data <- add_in_nbs() %>%
+    add_crf_ids() %>%
+    dplyr::mutate(
+      any_na = dplyr::across(dplyr::matches("[.].*_id_tmp_"), is.na) %>%
+        rowSums() %>%
+        as.logical()
+    )
+
+
+  na_components <- data %>%
+    dplyr::filter(.data[["any_na"]]) %>%
+    dplyr::select("record_id", "firstname", "lastname", "dob", "specimendate")
+
+  na_in_nbs <- data %>%
+    dplyr::filter(is.na(.data[["in_nbs"]])) %>%
+    dplyr::select("record_id", "firstname", "lastname", "dob", "specimendate")
+
+  expect_equal(na_in_nbs, na_components)
+})
+
+test_that("`add_recent_test()` propagates missing values correctly", {
+  skip_on_ci()
+  skip_if_offline()
+
+  data <- add_recent_test() %>%
+    dplyr::filter(is.na(.data[["in_nbs"]])) %>%
+    dplyr::select("record_id", "in_nbs", "recent_test")
+
+  expected_data <- dplyr::mutate(data, recent_test = NA)
+
+  expect_equal(data, expected_data)
 })
