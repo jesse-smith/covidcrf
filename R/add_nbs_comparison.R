@@ -86,11 +86,9 @@ add_recent_test <- function(
     dplyr::left_join(nbs_tmp, by = by, suffix = c("", "_nbs_")) %>%
     dplyr::mutate(
       .recent_test_tmp_ = .data[[".test_dt_tmp_"]] %>%
-        subtract(.data[["test_dt_tmp__nbs_"]]) %>%
+        subtract(.data[[".test_dt_tmp__nbs_"]]) %>%
         as.integer() %>%
-        abs() %>%
-        is_weakly_less_than(days) %>%
-        tidyr::replace_na(na_keep)
+        dplyr::between(1L, as.integer(days))
     ) %>%
     dplyr::group_by(.data[[".row_id_tmp_"]]) %>%
     dplyr::mutate(recent_test = any(.data[[".recent_test_tmp_"]])) %>%
