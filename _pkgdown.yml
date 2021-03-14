@@ -4,3 +4,16 @@ template:
 url: https://jesse-smith.github.io/covidcrf/
 development:
   mode: unreleased
+reference:
+- title: "Loading Data"
+- contents:
+  - download_crf
+  - load_positive
+- title: "Limiting Data"
+- contents:
+  - filter_crf
+  - distinct_crf
+- title: "Comparing with NBS"
+- contents:
+  - add_in_nbs
+  - add_recent_test
