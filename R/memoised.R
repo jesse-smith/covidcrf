@@ -16,6 +16,8 @@
 #' @param ... Additional arguments to pass to `memoise()`
 #'
 #' @return The memoised function
+#'
+#' @keywords internal
 mem_if_not <- function(f, ...) {
   # Do nothing if the memoise package isn't installed
   if (!requireNamespace("memoise", quietly = TRUE)) return(f)
@@ -41,6 +43,8 @@ mem_if_not <- function(f, ...) {
 #' @name read-memoised
 #'
 #' @aliases read_inv_positive read_pcr_positive
+#'
+#' @keywords internal
 NULL
 
 #' @rdname read-memoised
