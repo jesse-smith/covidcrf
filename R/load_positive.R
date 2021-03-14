@@ -52,6 +52,8 @@ load_positive <- function(date = NULL) {
 #' @name load_nbs_positive
 #'
 #' @aliases load_inv_positive load_pcr_positive
+#'
+#' @keywords internal
 NULL
 
 #' @rdname load_nbs_positive

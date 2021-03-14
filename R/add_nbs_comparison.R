@@ -116,6 +116,8 @@ add_recent_test <- function(
 #' @param data Data from `filter_crf()`
 #'
 #' @return `data` with added columns, all with suffix `_id_tmp_`
+#'
+#' @keywords internal
 add_crf_ids <- function(data = filter_crf()) {
   dplyr::mutate(
     data,
@@ -135,6 +137,8 @@ add_crf_ids <- function(data = filter_crf()) {
 #' @param data Data from `filter_crf()`
 #'
 #' @return `data` with added columns, all with suffix `_id_tmp_`
+#'
+#' @keywords internal
 add_nbs_ids <- function(data = load_positive()) {
   dplyr::mutate(
     data,

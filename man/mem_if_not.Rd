@@ -17,3 +17,4 @@ The memoised function
 \description{
 Memoise a Function if Not Already Done
 }
+\keyword{internal}

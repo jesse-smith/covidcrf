@@ -24,3 +24,4 @@ files. They only re-load the file if an argument has changed. This allows
 functions like \code{load_inv_positive()} to run \emph{much} more quickly when
 subsequent calls with the same arguments are made.
 }
+\keyword{internal}

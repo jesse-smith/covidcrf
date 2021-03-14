@@ -21,3 +21,4 @@ A \code{tibble}
 or the one specified by \code{date}, if provided. \code{load_inv_positive()} does the
 same for the latest investigations snapshot file.
 }
+\keyword{internal}
