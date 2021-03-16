@@ -16,16 +16,6 @@ test_that("`add_crf_ids()` produces expected ID columns", {
     dplyr::relocate(sort(colnames(.)))
 
   expect_vector(ids_test, ptype = ptype)
-
-  skip_on_ci()
-  skip_if_offline()
-
-  ids <- add_crf_ids() %>%
-    dplyr::select(dplyr::matches("^[.].*_id_tmp_$")) %>%
-    vctrs::vec_ptype() %>%
-    dplyr::relocate(sort(colnames(.)))
-
-  expect_vector(ids, ptype = ptype)
 })
 
 test_that("`add_nbs_ids()` produces expected ID columns", {
@@ -44,15 +34,6 @@ test_that("`add_nbs_ids()` produces expected ID columns", {
     dplyr::relocate(sort(colnames(.)))
 
   expect_vector(ids_test, ptype = ptype)
-
-  skip_on_ci()
-
-  ids <- add_nbs_ids() %>%
-    dplyr::select(dplyr::matches("^[.].*_id_tmp_$")) %>%
-    vctrs::vec_ptype() %>%
-    dplyr::relocate(sort(colnames(.)))
-
-  expect_vector(ids, ptype = ptype)
 })
 
 test_that("`add_in_nbs()` identifies matches correctly", {
@@ -98,7 +79,6 @@ test_that("`add_in_nbs()` propagates missing values correctly", {
         rowSums() %>%
         as.logical()
     )
-
 
   na_components <- data %>%
     dplyr::filter(.data[["any_na"]]) %>%
