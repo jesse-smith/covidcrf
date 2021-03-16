@@ -8,7 +8,7 @@ rename_crf(data = transmute_crf(), template = download_crf_template())
 }
 \arguments{
 \item{data}{CRF data containing only export columns, as produced by
-\code{\link[covidprod:transmute_crf]{transmute_crf()}}}
+\code{\link[covidcrf:transmute_crf]{transmute_crf()}}}
 
 \item{template}{The template for the CRF REDcap project}
 }

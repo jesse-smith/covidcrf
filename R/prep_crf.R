@@ -56,7 +56,7 @@ transmute_crf <- function(data = add_recent_test()) {
 #' Rename Export Columns in CRF Data
 #'
 #' @param data CRF data containing only export columns, as produced by
-#'   \code{\link[covidprod:transmute_crf]{transmute_crf()}}
+#'   \code{\link[covidcrf:transmute_crf]{transmute_crf()}}
 #'
 #' @param template The template for the CRF REDcap project
 #'
