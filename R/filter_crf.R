@@ -31,7 +31,7 @@ filter_crf <- function(
         replace = na_keep
       ),
       .already_surveyed_tmp_ = tidyr::replace_na(
-        as.integer(.data[["multi_ltcf_2"]]) != 1L,
+        suppressWarnings(as.integer(.data[["multi_ltcf_2"]]) != 1L),
         replace = na_keep
       )
     ) %>%
