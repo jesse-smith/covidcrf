@@ -23,6 +23,7 @@ Imports:
     rlang
 Suggests: 
     covr,
+    curl,
     dplyr,
     jsonlite,
     lubridate,

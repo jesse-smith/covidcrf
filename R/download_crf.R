@@ -16,7 +16,10 @@ download_crf <- function(api_token = Sys.getenv("redcap_CRF_token")) {
   params <- list(
     token   = api_token,
     content = "record",
-    format  = "json"
+    format  = "json",
+    rawOrLabel = "label",
+    rawOrLabelHeaders = "raw",
+    exportCheckboxLabel = "true"
   )
 
   httr::RETRY(
