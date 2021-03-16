@@ -29,10 +29,19 @@ test_nbs_comparison_nbs <- tibble::tribble(
                 "John",             "Smith", "1989-01-01T00:00:01Z", "2021-01-10T00:00:01Z"
 )
 
+test_crf_template_fields <- dplyr::select(
+  download_crf_template(),
+  c("field_name", "field_label")
+)
+
+test_crf_ptype <- vctrs::vec_ptype(download_crf())
+
 usethis::use_data(
   test_filter_crf,
   test_nbs_comparison_crf,
   test_nbs_comparison_nbs,
+  test_crf_template_fields,
+  test_crf_ptype,
   internal = TRUE,
   overwrite = TRUE
 )
