@@ -1,10 +1,31 @@
+#' Prepare CRF Data for Export
+#'
+#' `prep_crf()` select relevant columns, renames those columns using labels from
+#' the REDcap CRF project, and formats the contents of CRF data to prepare for
+#' export to Excel. Non-export columns are dropped.
+#'
+#' @param data Data ready for export preparation, as produced by
+#'   \code{\link[covidcrf:add_recent_test]{add_recent_test()}}
+#'
+#' @return The input `data` with export columns selected, renamed, and formatted
+#'
+#' @export
 prep_crf <- function(data = add_recent_test()) {
   data %>%
     transmute_crf() %>%
-    janitor::remove_empty(which = "rows") %>%
     rename_crf()
 }
 
+
+#' Select and Mutate CRF Columns for Export
+#'
+#' @param data Data ready for export preparation, as produced by
+#'   \code{\link[covidcrf:add_recent_test]{add_recent_test()}}
+#'
+#' @return The input `data` with export columns selected and renamed; other
+#'   columns are dropped
+#'
+#' @keywords internal
 transmute_crf <- function(data = add_recent_test()) {
   data %>%
     dplyr::select(
@@ -31,10 +52,33 @@ transmute_crf <- function(data = add_recent_test()) {
     )
 }
 
-rename_crf <- function(data = transmute_crf()) {
-  dplyr::rename_with(data, map_crf_cols)
+
+#' Rename Export Columns in CRF Data
+#'
+#' @param data CRF data containing only export columns, as produced by
+#'   \code{\link[covidprod:transmute_crf]{transmute_crf()}}
+#'
+#' @param template The template for the CRF REDcap project
+#'
+#' @return Input data with REDcap columns renamed
+#'
+#' @keywords internal
+rename_crf <- function(
+  data = transmute_crf(),
+  template = download_crf_template()
+) {
+  dplyr::rename_with(data, map_crf_cols, template = template)
 }
 
+#' Map Raw Variable Names to Labels in CRF Data
+#'
+#' @param cols Character. Raw column names in CRF data.
+#'
+#' @inheritParams rename_crf
+#'
+#' @return `character` vector with raw column names replaced by column labels
+#'
+#' @keywords internal
 map_crf_cols <- function(cols, template = download_crf_template()) {
 
   field_name  <- janitor::make_clean_names(template[["field_name"]])
