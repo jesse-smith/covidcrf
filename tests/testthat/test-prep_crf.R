@@ -5,7 +5,19 @@ test_that("`prep_crf()` works", {
     recent_test = logical()
   )
 
-  expect_snapshot(prep_crf(crf_nbs))
+  crf <- prep_crf(crf_nbs, template = test_crf_template_fields)
+
+  expected_crf <- tibble::tibble(
+    `Record ID` = character(),
+    `Patient's First Name` = character(),
+    `Patient's Last Name` = character(),
+    `Patient's Date of Birth` = lubridate::Date(),
+    `Specimen Collection Date` = lubridate::Date(),
+    in_nbs = logical(),
+    recent_test = logical()
+  )
+
+  expect_vector(crf, ptype = expected_crf)
 })
 
 test_that("`transmute_crf()` works", {
@@ -15,11 +27,21 @@ test_that("`transmute_crf()` works", {
     recent_test = logical()
   )
 
+  expected_ptype <- tibble::tibble(
+    record_id = character(),
+    firstname = character(),
+    lastname = character(),
+    dob = lubridate::Date(),
+    specimendate = lubridate::Date(),
+    in_nbs = logical(),
+    recent_test = logical()
+  )
+
   expect_error(
     transmute_crf(test_crf_ptype),
     regexp = "Can't subset columns that don't exist"
   )
-  expect_snapshot(transmute_crf(crf_nbs))
+  expect_vector(transmute_crf(crf_nbs), ptype = expected_ptype)
 })
 
 test_that("`rename_crf()` works", {
@@ -28,13 +50,31 @@ test_that("`rename_crf()` works", {
   offline  <- !is.null(curl::nslookup("r-project.org", error = FALSE))
   dwnld    <- !(on_ci || offline)
 
-  template <- if (dwnld) download_crf_template() else test_crf_template_fields
+  template <- dplyr::mutate(
+    if (dwnld) download_crf_template() else test_crf_template_fields,
+    field_label = janitor::make_clean_names(.data[["field_label"]])
+  )
+
+  expected_ptype <- tibble::tibble(
+    `Record ID` = character(),
+    `Patient's First Name` = character(),
+    `Patient's Last Name` = character(),
+    `Patient's Date of Birth` = character(),
+    `Specimen Collection Date` = character(),
+    in_nbs = logical(),
+    recent_test = logical()
+  ) %>%
+    janitor::clean_names() %>%
+    vctrs::vec_ptype()
+
+  cols <- colnames(expected_ptype)
 
   crf_ptype <- test_crf_ptype %>%
     dplyr::mutate(in_nbs = logical(), recent_test = logical()) %>%
-    transmute_crf()
+    rename_crf(template = template) %>%
+    dplyr::select(dplyr::contains(cols))
 
-  expect_snapshot(rename_crf(crf_ptype, template = template))
+  expect_vector(crf_ptype, ptype = expected_ptype)
 })
 
 test_that("`map_crf_cols()` works with REDcap columns", {
