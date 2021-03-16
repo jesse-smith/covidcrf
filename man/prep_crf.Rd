@@ -4,11 +4,13 @@
 \alias{prep_crf}
 \title{Prepare CRF Data for Export}
 \usage{
-prep_crf(data = add_recent_test())
+prep_crf(data = add_recent_test(), template = download_crf_template())
 }
 \arguments{
 \item{data}{Data ready for export preparation, as produced by
 \code{\link[covidcrf:add_recent_test]{add_recent_test()}}}
+
+\item{template}{The template for the CRF REDcap project}
 }
 \value{
 The input \code{data} with export columns selected, renamed, and formatted

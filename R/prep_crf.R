@@ -7,13 +7,18 @@
 #' @param data Data ready for export preparation, as produced by
 #'   \code{\link[covidcrf:add_recent_test]{add_recent_test()}}
 #'
+#' @param template The template for the CRF REDcap project
+#'
 #' @return The input `data` with export columns selected, renamed, and formatted
 #'
 #' @export
-prep_crf <- function(data = add_recent_test()) {
+prep_crf <- function(
+  data = add_recent_test(),
+  template = download_crf_template()
+) {
   data %>%
     transmute_crf() %>%
-    rename_crf()
+    rename_crf(template = template)
 }
 
 
@@ -58,7 +63,7 @@ transmute_crf <- function(data = add_recent_test()) {
 #' @param data CRF data containing only export columns, as produced by
 #'   \code{\link[covidcrf:transmute_crf]{transmute_crf()}}
 #'
-#' @param template The template for the CRF REDcap project
+#' @inheritParams prep_crf
 #'
 #' @return Input data with REDcap columns renamed
 #'
@@ -74,7 +79,7 @@ rename_crf <- function(
 #'
 #' @param cols Character. Raw column names in CRF data.
 #'
-#' @inheritParams rename_crf
+#' @inheritParams prep_crf
 #'
 #' @return `character` vector with raw column names replaced by column labels
 #'
