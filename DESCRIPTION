@@ -32,7 +32,8 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     tidyr,
-    vctrs
+    vctrs,
+    fs
 Remotes: 
     jesse-smith/coviData
 Config/testthat/edition: 3
