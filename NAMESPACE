@@ -3,6 +3,7 @@
 export("%>%")
 export(add_in_nbs)
 export(add_recent_test)
+export(create_crf_wb)
 export(distinct_crf)
 export(download_crf)
 export(filter_crf)
