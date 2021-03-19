@@ -33,7 +33,8 @@ Suggests:
     tibble,
     tidyr,
     vctrs,
-    fs
+    fs,
+    purrr
 Remotes: 
     jesse-smith/coviData
 Config/testthat/edition: 3
