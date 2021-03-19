@@ -42,6 +42,7 @@ transmute_crf <- function(data = add_recent_test()) {
         where(is.character),
         ~ stringr::str_replace(.x, "^$", replacement = NA_character_)
       ),
+      record_id = as.integer(.data[["record_id"]]),
       dob = coviData::std_dates(
         .data[["dob"]],
         force = "dt",

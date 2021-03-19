@@ -8,7 +8,7 @@ test_that("`prep_crf()` works", {
   crf <- prep_crf(crf_nbs, template = test_crf_template_fields)
 
   expected_crf <- tibble::tibble(
-    `Record ID` = character(),
+    `Record ID` = integer(),
     `Patient's First Name` = character(),
     `Patient's Last Name` = character(),
     `Patient's Date of Birth` = lubridate::Date(),
@@ -28,7 +28,7 @@ test_that("`transmute_crf()` works", {
   )
 
   expected_ptype <- tibble::tibble(
-    record_id = character(),
+    record_id = integer(),
     firstname = character(),
     lastname = character(),
     dob = lubridate::Date(),
