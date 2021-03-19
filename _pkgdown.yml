@@ -16,8 +16,8 @@ reference:
 - title: "Comparing with NBS"
 - contents:
   - add_in_nbs
-  - add_recent_test
--title: "Prepare for Export"
+  - add_recent_tests
+- title: "Prepare for Export"
 - contents:
   - prep_crf
   - create_crf_wb
