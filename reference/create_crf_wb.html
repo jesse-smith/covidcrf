@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • covidcrf</title>
+<title>Create Excel Workbook with Categorized Sheets of CRF Data — create_crf_wb • covidcrf</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,24 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Create Excel Workbook with Categorized Sheets of CRF Data — create_crf_wb" />
+<meta property="og:description" content="create_crf_wb() creates an Excel workbook object using the
+openxlsx package. The data are
+categorized into 5 sheets:
+
+Records in NBS without a recent
+test. New cases.
+
+Records in NBS, but with another recent test.
+Not new cases, since they've already tested positive recently.
+
+Records in NBS, but without sufficient
+information to determine whether they've had a prior positive test recently.
+
+Records not (yet) in NBS
+
+Records without sufficient identifying information
+to determine whether they're in NBS." />
 
 
 
@@ -58,7 +75,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,123 +122,49 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Create Excel Workbook with Categorized Sheets of CRF Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jesse-smith/covidcrf/blob/master/R/create_crf_wb.R'><code>R/create_crf_wb.R</code></a></small>
+    <div class="hidden name"><code>create_crf_wb.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p><code>create_crf_wb()</code> creates an Excel workbook object using the
+<a href='https://ycphs.github.io/openxlsx/'>openxlsx</a> package. The data are
+categorized into 5 sheets:</p><dl>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+</dl><p>Records in NBS without a recent
+test. New cases.</p><dl>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-loading-data" class="hasAnchor"><a href="#section-loading-data" class="anchor"></a>Loading Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="download_crf.html">download_crf()</a></code> </p>
-        </td>
-        <td><p>Download All Records from CRF REDcap Project</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_positive.html">load_positive()</a></code> </p>
-        </td>
-        <td><p>Load PCR Positives from a Given Date with Investigations File Data</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-limiting-data" class="hasAnchor"><a href="#section-limiting-data" class="anchor"></a>Limiting Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="filter_crf.html">filter_crf()</a></code> </p>
-        </td>
-        <td><p>Filter to Cases of Interest</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="distinct_crf.html">distinct_crf()</a></code> </p>
-        </td>
-        <td><p>Deduplicate Cases and Coalesce Information Among Duplicates</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-comparing-with-nbs" class="hasAnchor"><a href="#section-comparing-with-nbs" class="anchor"></a>Comparing with NBS</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="add_in_nbs.html">add_in_nbs()</a></code> </p>
-        </td>
-        <td><p>Determine Whether Inviduals are in NBS</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_recent_test.html">add_recent_test()</a></code> </p>
-        </td>
-        <td><p>Determine Whether Individuals Have Another Test Within <code>days</code></p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-prepare-for-export" class="hasAnchor"><a href="#section-prepare-for-export" class="anchor"></a>Prepare for Export</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="prep_crf.html">prep_crf()</a></code> </p>
-        </td>
-        <td><p>Prepare CRF Data for Export</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_crf_wb.html">create_crf_wb()</a></code> </p>
-        </td>
-        <td><p>Create Excel Workbook with Categorized Sheets of CRF Data</p></td>
-      </tr>
-    </tbody>
+</dl><p>Records in NBS, but with another recent test.
+Not new cases, since they've already tested positive recently.</p><dl>
+
+</dl><p>Records in NBS, but without sufficient
+information to determine whether they've had a prior positive test recently.</p><dl>
+
+</dl><p>Records not (yet) in NBS</p><dl>
+
+</dl><p>Records without sufficient identifying information
+to determine whether they're in NBS.</p>
+    </div>
+
+    <pre class="usage"><span class='fu'>create_crf_wb</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='prep_crf.html'>prep_crf</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>CRF data prepared by <code><a href='prep_crf.html'>prep_crf()</a></code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An openxlsx WorkBook object</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
