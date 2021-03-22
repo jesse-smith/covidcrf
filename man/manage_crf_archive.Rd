@@ -4,7 +4,11 @@
 \alias{manage_crf_archive}
 \title{Manage CRF Data Archive}
 \usage{
-manage_crf_archive(dir = "V:/EPI DATA ANALYTICS TEAM/CRF/CRF_NBS", min = 7L)
+manage_crf_archive(
+ 
+    dir = paste0("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
+  min = 7L
+)
 }
 \arguments{
 \item{dir}{The CRF data directory}
