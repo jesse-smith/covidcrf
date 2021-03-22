@@ -75,7 +75,7 @@ test_that("`rename_crf()` works", {
   crf_ptype <- test_crf_ptype %>%
     dplyr::mutate(in_nbs = logical(), recent_test = logical()) %>%
     rename_crf(template = template) %>%
-    dplyr::select(dplyr::contains(cols))
+    dplyr::select(dplyr::matches(paste0("^", cols, "$")))
 
   expect_vector(crf_ptype, ptype = expected_ptype)
 })
