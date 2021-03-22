@@ -35,7 +35,7 @@ transmute_crf <- function(data = add_recent_test()) {
   data %>%
     dplyr::select(
       c("record_id", "firstname", "lastname", "dob", "specimendate"),
-      c("in_nbs", "recent_test")
+      c("facility", "in_nbs", "recent_test")
     ) %>%
     dplyr::mutate(
       dplyr::across(

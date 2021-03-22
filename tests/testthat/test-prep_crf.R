@@ -13,6 +13,7 @@ test_that("`prep_crf()` works", {
     `Patient's Last Name` = character(),
     `Patient's Date of Birth` = lubridate::Date(),
     `Specimen Collection Date` = lubridate::Date(),
+    `Name of Facility` = character(),
     in_nbs = logical(),
     recent_test = logical()
   )
@@ -33,6 +34,7 @@ test_that("`transmute_crf()` works", {
     lastname = character(),
     dob = lubridate::Date(),
     specimendate = lubridate::Date(),
+    facility = character(),
     in_nbs = logical(),
     recent_test = logical()
   )
@@ -61,6 +63,7 @@ test_that("`rename_crf()` works", {
     `Patient's Last Name` = character(),
     `Patient's Date of Birth` = character(),
     `Specimen Collection Date` = character(),
+    `Name of Facility` = character(),
     in_nbs = logical(),
     recent_test = logical()
   ) %>%
@@ -72,7 +75,7 @@ test_that("`rename_crf()` works", {
   crf_ptype <- test_crf_ptype %>%
     dplyr::mutate(in_nbs = logical(), recent_test = logical()) %>%
     rename_crf(template = template) %>%
-    dplyr::select(dplyr::contains(cols))
+    dplyr::select(dplyr::matches(paste0("^", cols, "$")))
 
   expect_vector(crf_ptype, ptype = expected_ptype)
 })
