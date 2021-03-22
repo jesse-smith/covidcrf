@@ -18,7 +18,7 @@
 #' @export
 save_crf_wb <- function(
   wb = create_crf_wb(),
-  dir = paste0(
+  dir = c(
     "V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"
   ),
   force = TRUE

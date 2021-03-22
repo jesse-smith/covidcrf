@@ -5,8 +5,7 @@
 \title{Manage CRF Data Archive}
 \usage{
 manage_crf_archive(
- 
-    dir = paste0("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
+  dir = c("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
   min = 7L
 )
 }

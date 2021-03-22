@@ -12,7 +12,7 @@
 #'
 #' @export
 manage_crf_archive <- function(
-  dir = paste0(
+  dir = c(
     "V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"
   ),
   min = 7L
@@ -50,7 +50,7 @@ manage_crf_archive <- function(
 #'
 #' @keywords internal
 old_crf_files <- function(
-  dir = paste0(
+  dir = c(
     "V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"
   ),
   regex = ".*/CRF_NBS[^/]*[.]xlsx$"

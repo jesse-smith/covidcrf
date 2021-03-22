@@ -5,8 +5,7 @@
 \title{Identify Old CRF Files}
 \usage{
 old_crf_files(
- 
-    dir = paste0("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
+  dir = c("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
   regex = ".*/CRF_NBS[^/]*[.]xlsx$"
 )
 }

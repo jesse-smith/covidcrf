@@ -6,8 +6,7 @@
 \usage{
 save_crf_wb(
   wb = create_crf_wb(),
- 
-    dir = paste0("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
+  dir = c("V:/OPERATIONS Surveillance Coordinator/Clusters/Case Report Forms/CRF_NBS"),
   force = TRUE
 )
 }
